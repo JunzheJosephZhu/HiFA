@@ -52,8 +52,9 @@ pip install ./raymarching # install to python path (you still need the raymarchi
 CUDA_VISIBLE_DEVICES=0 python main.py --text "iron throne from game of thrones" --workspace trials_throne_sanity --dir_text --albedo --phi_range 0 120 
 ```
 #### Image to 3d reconstruction / Image-guided 3d generation
-For both of those, you need to generate some predicted views following instruction in [SyncDreamer](https://github.com/liuyuan-pal/SyncDreamer#preparation-for-training) by first removing the background and then generating 16 views. Copy over the output 0.png to this folder and specify the file with image-path.
-Then for image to 3d generation:
+For both of those, you need to generate some predicted views following instruction in [SyncDreamer](https://github.com/liuyuan-pal/SyncDreamer#preparation-for-training) by first removing the background and then generating 16 views. Copy over the output 0.png to this project's folder and specify the file with image-path.
+We provided some example images under raw_input and gt_images.
+After you get the predicted views from SyncDreamer, for image to 3d generation:
 ```
 CUDA_VISIBLE_DEVICES=0 python main.py --text "A toy grabber with dinosaur head" --learned_embeds_path "gt_images/dinosaur/learned_embeds.bin" --image_path "gt_images/dinosaur/0.png" --workspace "trials_dinosaur(textprompt)_imgto3d_sanity" --dir_text --albedo --min_percent 0.3  --dir_rate 0.5 --gt_image_rate 0.5 --h 256 --w 256
 ```
@@ -65,7 +66,7 @@ CUDA_VISIBLE_DEVICES=0 python main.py --text "A toy grabber with dinosaur head" 
 ----
 
 Some notable additions compared to the paper: 
-1. More kernel smoothing strategies for coarse-to-fine sampling
+1. More [kernel smoothing strategies](https://github.com/JunzheJosephZhu/HiFA/blob/be1a1fa42c66ff388255f6f4db8a2fda0309a35d/nerf/renderer.py#L31C23-L31C23) for coarse-to-fine sampling
 2. New regularizers akin to z-variance: [monotonicity loss](https://github.com/KelestZ/HIFA_dirty/blob/287240e812c2e0eddd6c646d400e8b802c132b32/nerf/utils.py#L592C1-L593C1) and [z-entropy loss](https://github.com/KelestZ/HIFA_dirty/blob/287240e812c2e0eddd6c646d400e8b802c132b32/nerf/utils.py#L618C1-L619C1)
    Intuitively, monotonicity loss ensures that the blending weight first increases then decreases monotonically along a ray, ensuring that there is a consistent surface. Z-entropy loss regulates the entropy of the blending weight distribution along the ray, similar to how z-variance loss regulates its variance.
 
