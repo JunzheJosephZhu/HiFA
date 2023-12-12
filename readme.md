@@ -23,6 +23,7 @@
 
 ### Install
 ```
+conda create -n hifa python=3.9
 pip install -r requirements.txt
 
 make sure torch is with cuda.is_available()
