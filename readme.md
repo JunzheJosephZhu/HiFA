@@ -25,15 +25,9 @@
 ```
 conda create -n hifa python=3.9
 pip install -r requirements.txt
-
-make sure torch is with cuda.is_available()
-conda install pytorch torchvision pytorch-cuda=11.8 -c pytorch -c nvidia
-
-(Suppose your are using torch2.0 + cu 117, install torch-scatter:)
+(Suppose your are using torch2.0 + cu117, install torch-scatter:)
 pip install torch-scatter -f https://data.pyg.org/whl/torch-2.0.0+cu117.html
-pip install torchmetrics
-pip install invisible_watermark transformers accelerate safetensors
-
+make sure torch is with cuda.is_available()
 ```
 ### Build extension (optional)
 By default, we use [`load`](https://pytorch.org/docs/stable/cpp_extension.html#torch.utils.cpp_extension.load) to build the extension at runtime.
@@ -45,6 +39,7 @@ bash scripts/install_ext.sh
 # if you want to install manually, here is an example:
 pip install ./raymarching # install to python path (you still need the raymarching/ folder, since this only installs the built extension.)
 ```
+This is a lot more convenient, since you wont have to rebuild it
 
 ### Example commands
 
@@ -57,12 +52,20 @@ For both of those, you need to generate some predicted views following instructi
 We provided some example images under raw_input and gt_images.
 After you get the predicted views from SyncDreamer, for image to 3d generation:
 ```
-CUDA_VISIBLE_DEVICES=0 python main.py --text "A toy grabber with dinosaur head" --learned_embeds_path "gt_images/dinosaur/learned_embeds.bin" --image_path "gt_images/dinosaur/0.png" --workspace "trials_dinosaur(textprompt)_imgto3d_sanity" --dir_text --albedo --min_percent 0.3  --dir_rate 0.5 --gt_image_rate 0.5 --h 256 --w 256
+CUDA_VISIBLE_DEVICES=0 python main.py --text "A toy grabber with dinosaur head" --learned_embeds_path "gt_images/dinosaur/learned_embeds.bin" --image_path "gt_images/dinosaur/0.png" --workspace "trials_dinosaur(textprompt)_imgto3d" --dir_text --albedo --gt_image_rate 0.5 --h 256 --w 256
 ```
 For image-guided 3d generation:
 ```
-CUDA_VISIBLE_DEVICES=0 python main.py --text "A toy grabber with dinosaur head" --learned_embeds_path "gt_images/dinosaur/learned_embeds.bin" --image_path "gt_images/dinosaur/0.png" --workspace "trials_dinosaur(textprompt)_imgguided_sanity" --dir_text --albedo --min_percent 0.3  --dir_rate 0.5 --gt_image_rate 0.5 --h 256 --w 256 --anneal_gt 0.7
+CUDA_VISIBLE_DEVICES=0 python main.py --text "A toy grabber with dinosaur head" --learned_embeds_path "gt_images/dinosaur/learned_embeds.bin" --image_path "gt_images/dinosaur/0.png" --workspace "trials_dinosaur(textprompt)_imgguided" --dir_text --albedo --gt_image_rate 0.5 --h 256 --w 256 --anneal_gt 0.7
 ```
+To use textual inversion, first compute token:
+```
+python textual-inversion/textual_inversion.py --output_dir="gt_images/teapot" --train_data_dir="raw_input/no_bg/teapot"  --initializer_token="teapot"  --placeholder_token="_teapot_placeholder_" --pretrained_model_name_or_path="SG161222/Realistic_Vision_V5.1_noVAE" --learnable_property="object"  --resolution=256 --train_batch_size=1 --gradient_accumulation_steps=4 --max_train_steps=5000 --learning_rate=5.0e-4 --scale_lr --lr_scheduler="constant" --lr_warmup_steps=0 --use_augmentations
+
+python main.py --text "a DSLR photo of <token>" --learned_embeds_path "gt_images/teapot/learned_embeds.bin" --image_path "gt_images/teapot/0.png" --workspace "trials_teapot_gtrate=0.5_v9" --dir_text --albedo --gt_image_rate 0.5 --h 256 --w 256
+``````
+However, we don't find that textual inversion visibly brings a benefit
+
 #### Note: add --clip_grad option if NaN value is produced during training
 ----
 

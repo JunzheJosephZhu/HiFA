@@ -46,7 +46,7 @@ if __name__ == '__main__':
     parser.add_argument('--if_upsample_noise_level', type=int, default=250)
     parser.add_argument('--sds_weight', default="constant", choices=["constant", "noisematch", "sdslike", "strongerlower"])
     parser.add_argument('--image_path', default="gt_images/firekeeper/0.png")
-    parser.add_argument('--gt_image_rate', default=0, type=float)
+    parser.add_argument('--gt_image_rate', default=0, type=float, help="during image-to-3d training, ratio of training iterations to use image recon loss vs sds loss")
     parser.add_argument('--clip_grad', action="store_true")
 
     parser.add_argument('--lambda_gt', default=0.1, type=float)
