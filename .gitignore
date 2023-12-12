@@ -9,7 +9,7 @@ gt_images/**/*.bin
 gt_images/**/*.pkl
 gt_images/**/*.json
 gt_images/**/.logs
-
+experiments*.sh
 
 
 # C extensions
