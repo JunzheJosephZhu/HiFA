@@ -50,6 +50,7 @@ CUDA_VISIBLE_DEVICES=0 python main.py --text "iron throne from game of thrones" 
 #### Image to 3d reconstruction / Image-guided 3d generation
 For both of those, you need to generate some predicted views following instruction in [SyncDreamer](https://github.com/liuyuan-pal/SyncDreamer#preparation-for-training) by first removing the background and then generating 16 views. Copy over the output 0.png to this project's folder and specify the file with image-path.
 We provided some example images under raw_input and gt_images.
+
 After you get the predicted views from SyncDreamer, for image to 3d generation:
 ```
 CUDA_VISIBLE_DEVICES=0 python main.py --text "A toy grabber with dinosaur head" --learned_embeds_path "gt_images/dinosaur/learned_embeds.bin" --image_path "gt_images/dinosaur/0.png" --workspace "trials_dinosaur(textprompt)_imgto3d" --dir_text --albedo --gt_image_rate 0.5 --h 256 --w 256
@@ -73,7 +74,7 @@ Some notable additions compared to the paper:
 1. More [kernel smoothing strategies](https://github.com/JunzheJosephZhu/HiFA/blob/be1a1fa42c66ff388255f6f4db8a2fda0309a35d/nerf/renderer.py#L31C23-L31C23) for coarse-to-fine sampling
 2. New regularizers akin to z-variance: [monotonicity loss](https://github.com/KelestZ/HIFA_dirty/blob/287240e812c2e0eddd6c646d400e8b802c132b32/nerf/utils.py#L592C1-L593C1) and [z-entropy loss](https://github.com/KelestZ/HIFA_dirty/blob/287240e812c2e0eddd6c646d400e8b802c132b32/nerf/utils.py#L618C1-L619C1)
    Intuitively, monotonicity loss ensures that the blending weight first increases then decreases monotonically along a ray, ensuring that there is a consistent surface. Z-entropy loss regulates the entropy of the blending weight distribution along the ray, similar to how z-variance loss regulates its variance.
-
+3. This is just a clarification, since I noticed this issue in threestudio's re-implementation of z-variance loss: the rendering weights have to be normalized(divided by sum) along each ray before z-variance is computed. This is because if you dont normalize i) the depth and z-variance will both be zero for background pixels 2) we cannot set lambda_zvar to be big, since then the model will be encouraged to have more background pixels(which have low z-variance), leading to small objects. This issue goes away with normalization.
 
 
 # Acknowledgement
