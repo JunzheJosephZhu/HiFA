@@ -52,7 +52,7 @@ pip install ./raymarching # install to python path (you still need the raymarchi
 CUDA_VISIBLE_DEVICES=0 python main.py --text "iron throne from game of thrones" --workspace trials_throne_sanity --dir_text --albedo --phi_range 0 120 
 ```
 #### Image to 3d reconstruction / Image-guided 3d generation
-For both of those, need to generate some predicted views from [SyncDreamer](https://github.com/liuyuan-pal/SyncDreamer), and specify the file with --image_path
+For both of those, need to generate some predicted views following instruction in [SyncDreamer] by first removing the background and then generating 16 views. ([https://github.com/liuyuan-pal/SyncDreamer](https://github.com/liuyuan-pal/SyncDreamer#preparation-for-training). Copy over the output 0.png to this folder and specify the file with image-path.
 Then for image to 3d generation:
 ```
 CUDA_VISIBLE_DEVICES=0 python main.py --text "A toy grabber with dinosaur head" --learned_embeds_path "gt_images/dinosaur/learned_embeds.bin" --image_path "gt_images/dinosaur/0.png" --workspace "trials_dinosaur(textprompt)_imgto3d_sanity" --dir_text --albedo --min_percent 0.3  --dir_rate 0.5 --gt_image_rate 0.5 --h 256 --w 256
