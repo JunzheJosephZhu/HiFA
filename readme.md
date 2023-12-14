@@ -45,7 +45,7 @@ This is a lot more convenient, since you wont have to rebuild it
 
 #### Text to 3d
 ```
-CUDA_VISIBLE_DEVICES=0 python main.py --text "iron throne from game of thrones" --workspace trials_throne_sanity --dir_text --albedo --phi_range 0 120 
+CUDA_VISIBLE_DEVICES=0 python main.py --text "a baby bunny sitting on top of a stack of pancakes" --workspace trials_throne_sanity --dir_text --albedo --phi_range 0 120 
 ```
 #### Image to 3d reconstruction / Image-guided 3d generation
 For both of those, you need to generate some predicted views following instruction in [SyncDreamer](https://github.com/liuyuan-pal/SyncDreamer#preparation-for-training) by first removing the background and then generating 16 views. Copy over the output 0.png to this project's folder and specify the file with image-path.
