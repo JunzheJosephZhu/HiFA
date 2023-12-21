@@ -2,21 +2,21 @@
  HiFA: High-fidelity Text-to-3D Generation with Advanced Diffusion Guidance<br>
 </p></h2>
 <h3><p align="center">
-  <a href="https://arxiv.org/abs/2305.18766">paper</a> | <a href="https://hifa-team.github.io/HiFA-site/">project page</a>
+  <a href="https://arxiv.org/abs/2305.18766">paper</a> | <a href="https://josephzhu.com/HiFA-site/">project page</a>
 </p></h3>
 
 <div align="center">
-  <img src="https://github.com/HiFA-team/HiFA-site/blob/master/HiFA_files/gifs_v3/bunny_rgb_normal.mp4.gif" width="660"/><br>
+  <img src="https://github.com/JunzheJosephZhu/HiFA-site/blob/master/HiFA_files/gifs_v3/bunny_rgb_normal.mp4.gif" width="660"/><br>
   <b>Text-to-3d</b>
 </div>
 <div align="center">
-  <img src="https://github.com/HiFA-team/HiFA-site/blob/master/HiFA_files/image_guided_v3/dinosaur3.jpeg" width="330"/>
-  <img src="https://github.com/HiFA-team/HiFA-site/blob/master/HiFA_files/image_guided_v3/dinosaur_df_ep0100_rgb.gif" width="330"/><br>
+  <img src="https://github.com/JunzheJosephZhu/HiFA-site/blob/master/HiFA_files/image_guided_v3/dinosaur3.jpeg" width="330"/>
+  <img src="https://github.com/JunzheJosephZhu/HiFA-site/blob/master/HiFA_files/image_guided_v3/dinosaur_df_ep0100_rgb.gif" width="330"/><br>
   <b>Image-guided 3d generation</b>
 </div>
 <div align="center">
-  <img src="https://github.com/HiFA-team/HiFA-site/blob/master/HiFA_files/image_to_3d_v3/teapot.png" width="330"/>
-  <img src="https://github.com/HiFA-team/HiFA-site/blob/master/HiFA_files/image_to_3d_v3/teapot_df_ep0100_rgb.gif" width="330"/><br>
+  <img src="https://github.com/JunzheJosephZhu/HiFA-site/blob/master/HiFA_files/image_to_3d_v3/teapot.png" width="330"/>
+  <img src="https://github.com/JunzheJosephZhu/HiFA-site/blob/master/HiFA_files/image_to_3d_v3/teapot_df_ep0100_rgb.gif" width="330"/><br>
   <b>Image-to-3d reconstruction</b>
 </div>
 
