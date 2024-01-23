@@ -18,7 +18,7 @@ rich
 dearpygui
 scipy
 huggingface_hub
-diffusers >= 0.9.0 # for stable-diffusion 2.0
+diffusers==0.20 # for stable-diffusion 2.0
 transformers==4.30.2
 xatlas
 scikit-learn
